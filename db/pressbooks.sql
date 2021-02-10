@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 10, 2021 at 07:39 AM
+-- Generation Time: Feb 10, 2021 at 10:59 AM
 -- Server version: 8.0.21
 -- PHP Version: 7.4.3
 
@@ -29,13 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `books` (
   `id` int NOT NULL,
-  `subject_id` int DEFAULT NULL,
+  `subject_id` int NOT NULL,
   `title` varchar(2083) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `url` varchar(2083) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `language` char(3) NOT NULL,
+  `language` enum('AR','EN','ES','FR','ZH') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `word_count` mediumint NOT NULL,
   `is_original` tinyint(1) NOT NULL,
-  `based_on` varchar(2083) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
+  `based_on` varchar(2083) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -57,7 +57,7 @@ INSERT INTO `books` (`id`, `subject_id`, `title`, `url`, `language`, `word_count
 
 CREATE TABLE `subject` (
   `id` int NOT NULL,
-  `identifier` varchar(5) NOT NULL,
+  `identifier` int(3) UNSIGNED ZEROFILL NOT NULL,
   `name` varchar(2083) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -66,12 +66,12 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`id`, `identifier`, `name`) VALUES
-(1, '001', 'Fashion & textiles'),
-(2, '002', 'Education'),
-(3, '003', 'Health'),
-(4, '004', 'Language learning'),
-(5, '005', 'Publishing & book trade'),
-(6, '006', 'Comparative literature');
+(1, 001, 'Fashion & textiles'),
+(2, 002, 'Education'),
+(3, 003, 'Health'),
+(4, 004, 'Language learning'),
+(5, 005, 'Publishing & book trade'),
+(6, 006, 'Comparative literature');
 
 --
 -- Indexes for dumped tables
@@ -104,7 +104,7 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
