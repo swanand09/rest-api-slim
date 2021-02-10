@@ -1,0 +1,363 @@
+[
+  {
+    "title": "20th Century Costume Pattern Design",
+    "url": "https://ufl.pb.unizin.org/20thcenturypatterndesign/",
+    "subject": [
+      {
+        "Identifier": "001",
+        "Name": "Fashion & textiles"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 1806,
+    "is_original": true
+  },
+  {
+    "title": "12 Key Ideas: An Introduction to Teaching Online",
+    "url": "https://ecampusontario.pressbooks.pub/onlineteaching/",
+    "subject": [
+      {
+        "Identifier": "002",
+        "Name": "Education"
+      }
+      ],
+    "Language": "EN",
+    "word_count": 23332,
+    "is_original": true
+  },
+  {
+    "title": "21st Century Queer Fashion Brands",
+    "url": "https://iastate.pressbooks.pub/queerfashionbrands/",
+    "subject": [
+      {
+        "Identifier": "001",
+        "Name": "Fashion & textiles"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 210353,
+    "is_original": true
+  },
+  {
+    "title": "2019-2020 Family Medicine Clerkship",
+    "url": "https://tuftsmedicine.pressbooks.pub/familymedicineclerkship/",
+    "subject": [
+      {
+        "Identifier": "003",
+        "Name": "Health"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 266565,
+    "is_original": true
+  },
+  {
+    "title": "1, 2, 3 Write!",
+    "url": "https://mhcc.pressbooks.pub/monteverde/",
+    "subject": [
+      {
+        "Identifier": "004",
+        "Name": "Language learning"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 39949,
+    "is_original": false,
+    "based_on": "https://open.lib.umn.edu/writingforsuccess"
+  },
+  {
+    "title": "A Guide to Making Open Textbooks with Students",
+    "url": "https://csupueblo.pressbooks.pub/makingopentextbookswithstudents/",
+    "subject": [
+      {
+        "Identifier": "005",
+        "Name": "Publishing & book trade"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 121515,
+    "is_original": true
+  },
+  {
+    "title": "A parar bien la oreja: cuaderno de comprensión auditiva",
+    "url": "https://ecampusontario.pressbooks.pub/slch/",
+    "subject": [
+      {
+        "Identifier": "004",
+        "Name": "Language learning"
+      }
+    ],
+    "Language": "ES",
+    "word_count": 12755,
+    "is_original": true
+  },
+  {
+    "title": "Antología abierta de literatura hispana",
+    "url": "https://press.rebus.community/aalh/",
+    "subject": [
+      {
+        "Identifier": "006",
+        "Name": "Comparative literature"
+      }
+    ],
+    "Language": "ES",
+    "word_count": 69619,
+    "is_original": true
+  },
+  {
+    "title": "Antología abierta de literatura hispana: edición canadiense",
+    "url": "https://ecampusontario.pressbooks.pub/aalh/",
+    "subject": [
+      {
+        "Identifier": "006",
+        "Name": "Comparative literature"
+      }
+    ],
+    "Language": "ES",
+    "word_count": 24236,
+    "is_original": false,
+    "based_on": "https://press.rebus.community/aalh/"
+  },
+  {
+    "title": "Español para hablantes nativos",
+    "url": "https://openoregon.pressbooks.pub/spanishbiliteracy/",
+    "subject": [
+      {
+        "Identifier": "004",
+        "Name": "Language learning"
+      }
+    ],
+    "Language": "ES",
+    "word_count": 24405,
+    "is_original": true
+  },
+  {
+    "title": "La Trousse d’outils d’accessibilité",
+    "url": "https://ecampusontario.pressbooks.pub/troussedoutildeaccessibilite/",
+    "subject": [
+      {
+        "Identifier": "005",
+        "Name": "Publishing & book trade"
+      }
+    ],
+    "Language": "FR",
+    "word_count": 7675,
+    "is_original": false,
+    "based_on": "https://opentextbc.ca/accessibilitytoolkit/"
+  },
+  {
+    "title": "Femmes savantes, femmes de science",
+    "url": "https://scienceetbiencommun.pressbooks.pub/femmessavantes/",
+    "subject": [
+      {
+        "Identifier": "007",
+        "Name": "Women in science"
+      }
+    ],
+    "Language": "FR",
+    "word_count": 33196,
+    "is_original": true
+  },
+  {
+    "title": "Femmes savantes, femmes de science",
+    "url": "https://ecampusontario.pressbooks.pub/femmessavantes/",
+    "subject": [
+      {
+        "Identifier": "007",
+        "Name": "Women in science"
+      }
+    ],
+    "Language": "FR",
+    "word_count": 31046,
+    "is_original": false,
+    "based_on": "https://scienceetbiencommun.pressbooks.pub/femmessavantes/"
+  },
+  {
+    "title": "قصص من الليالي العربية",
+    "url": "https://pressbooks.uiowa.edu/makur3/",
+    "subject": [
+      {
+        "Identifier": "006",
+        "Name": "Comparative literature"
+      }
+    ],
+    "Language": "AR",
+    "word_count": 12791,
+    "is_original": true
+  },
+  {
+    "title": "A Beginner's Guide for Transitioning into Colloquial Arabic",
+    "url": "https://pdx.pressbooks.pub/frommsatoca/",
+    "subject": [
+      {
+        "Identifier": "004",
+        "Name": "Language learning"
+      }
+    ],
+    "Language": "AR",
+    "word_count": 10055,
+    "is_original": true
+  },
+  {
+    "title": "Tiny Tales from the Sufis",
+    "url": "https://sufis.pressbooks.com/",
+    "subject": [
+      {
+        "Identifier": "006",
+        "Name": "Comparative literature"
+      }
+    ],
+    "Language": "AR",
+    "word_count": 25839,
+    "is_original": true
+  },
+  {
+    "title": "三國演義 (Romance of the Three Kingdoms)",
+    "url": "https://chinesenotes.com/sanguoyanyi.html",
+    "subject": [
+      {
+        "Identifier": "006",
+        "Name": "Comparative literature"
+      }
+    ],
+    "Language": "ZH",
+    "word_count": 14715,
+    "is_original": false,
+    "based_on": "https://ctext.org/sanguozhi"
+  },
+  {
+    "title": "三國志 (Records of the Three Kingdoms)",
+    "url": "https://ctext.org/sanguozhi",
+    "subject": [
+      {
+        "Identifier": "006",
+        "Name": "Comparative literature"
+      }
+    ],
+    "Language": "ZH",
+    "word_count": 84105,
+    "is_original": true
+  },
+  {
+    "title": "紅樓夢 (Dream of the Red Chamber)",
+    "url": "https://chinesenotes.com/hongloumeng.html",
+    "subject": [
+      {
+        "Identifier": "006",
+        "Name": "Comparative literature"
+      }
+    ],
+    "Language": "ZH",
+    "word_count": 44932,
+    "is_original": true
+  },
+  {
+    "title": "The Dream of the Red Chamber: Book I",
+    "url": "https://librivox.org/the-dream-of-the-red-chamber-book-i-by-xueqin-cao/",
+    "subject": [
+      {
+        "Identifier": "006",
+        "Name": "Comparative literature"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 24015,
+    "is_original": false,
+    "based_on": "https://chinesenotes.com/hongloumeng.html"
+  },
+  {
+    "title": "An Open Approach to Scholarly Reading and Knowledge Management",
+    "url": "https://press.rebus.community/scholarlyreading/",
+    "subject": [
+      {
+        "Identifier": "005",
+        "Name": "Publishing & book trade"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 2324335,
+    "is_original": true
+  },
+  {
+    "title": "التدريس عبر الإنترنت",
+    "url": "https://ecampusontario.pressbooks.pub/aqpr/",
+    "subject": [
+      {
+        "Identifier": "002",
+        "Name": "Education"
+      }
+    ],
+    "Language": "AR",
+    "word_count": 39949,
+    "is_original": false,
+    "based_on": "https://ecampusontario.pressbooks.pub/onlineteaching/"
+  },
+  {
+    "title": "1, 2, 3 Write!",
+    "url": "https://oer.pressbooks.pub/writing/",
+    "subject": [
+      {
+        "Identifier": "004",
+        "Name": "Language learning"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 39949,
+    "is_original": false,
+    "based_on": "https://mhcc.pressbooks.pub/monteverde/"
+  },
+  {
+    "title": "Una guía para escribir",
+    "url": "https://oer.pressbooks.pub/escribir/",
+    "subject": [
+      {
+        "Identifier": "004",
+        "Name": "Language learning"
+      }
+    ],
+    "Language": "ES",
+    "word_count": 15949,
+    "is_original": false,
+    "based_on": "https://open.lib.umn.edu/writingforsuccess"
+  },
+  {
+    "title": "An Introduction to Medical Documentation for the Physical Therapist Assistant",
+    "url": "https://psu.pb.unizin.org/ptamedicaldocumentation/",
+    "subject": [
+      {
+        "Identifier": "003",
+        "Name": "Health"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 443324,
+    "is_original": false,
+    "based_on": "https://openbooks.lib.msu.edu/isb202/"
+  },
+  {
+    "title": "Collegiate Fashion and Activism: Black Women’s Styles on the College Campus",
+    "url": "https://iastate.pressbooks.pub/collegiatefashionactivism/",
+    "subject": [
+      {
+        "Identifier": "001",
+        "Name": "Fashion & textiles"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 6366,
+    "is_original": true
+  },
+  {
+    "title": "Writing for Success",
+    "url": "https://open.lib.umn.edu/writingforsuccess/",
+    "subject": [
+      {
+        "Identifier": "002",
+        "Name": "Education"
+      }
+    ],
+    "Language": "EN",
+    "word_count": 164035,
+    "is_original": true
+  }
+]
