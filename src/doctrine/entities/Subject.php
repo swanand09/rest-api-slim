@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="subject")
+ * @ORM\Table(name="subject",indexes={@ORM\Index(name="name_index_fulltext", columns={"name"})})
  *
  */
 class Subject implements \JsonSerializable

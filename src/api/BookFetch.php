@@ -6,6 +6,8 @@ namespace App\Api;
 //error_reporting(E_ALL);
 use App\Db\DoctrineConfig;
 use Doctrine\Entities\Books;
+use Doctrine\Entities\Subject;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 class BookFetch
 {
@@ -41,6 +43,8 @@ class BookFetch
 	{
 		if($number <= 100){
 			return $this->bookRepository->findBy([],[],$number);
+		}else{
+			throw new ErrorException("Number should be a max of 100");
 		}
 	}
 	
@@ -49,6 +53,20 @@ class BookFetch
 		$limit = $number*10;
 		$offset = $limit-10;
 		return $this->bookRepository->findBy([],[],$limit,$offset);
+	}
+	
+	public function searchBooks(string $term)
+	{
+		$rsm = new ResultSetMapping();
+		
+		// Specify the object type to be returned in results
+		$rsm->addEntityResult('Doctrine\Entities\Books', 'b');
+	   //$rsm->addEntityResult('Doctrine\Entities\Subject', 's');
+		$query = $this->entityManager->createNativeQuery("SELECT b.* FROM books b INNER JOIN subject s ON b.subject_id = s.id WHERE MATCH(b.title)AGAINST (:term1 IN NATURAL LANGUAGE MODE) OR MATCH(s.name) AGAINST (:term2 IN NATURAL LANGUAGE MODE) ORDER BY b.title ASC",$rsm);
+		$query->setParameters(
+			['term1' => $term,'term2' => $term]
+		);
+		return $query->getResult();
 	}
 	
 	public function __destruct()

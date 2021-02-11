@@ -1,7 +1,7 @@
 <?php
- ini_set('display_errors', 1);
- ini_set('display_startup_errors', 1);
- error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
  
 require_once __DIR__ . '/../vendor/autoload.php';
 use Psr\Http\Message\ResponseInterface as Response;
@@ -12,9 +12,8 @@ Use App\Api\BookFetch;
 
 
 $app = AppFactory::create();
-	$app->addRoutingMiddleware();
-	
-	$app->addErrorMiddleware(true, true, true);
+//$app->addRoutingMiddleware();
+//$app->addErrorMiddleware(true, true, true);
 
 $app->get('/', function (Request $request, Response $response, $args) {
 	
@@ -27,30 +26,36 @@ $app->get('/', function (Request $request, Response $response, $args) {
 		$response->getBody()->write(json_encode($books));
 		return $response
 			->withHeader('Content-Type', 'application/json');
-	} catch(PDOEception $e){
-		echo '{"error": {"text":'.$e->getMessage().'}}';
+	} catch(Exception $e){
+		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
 	}
 });
 
 $app->get('/per_page/{number}', function (Request $request, Response $response, $args) {
 	
 	try{
-		// Get api object which executes doctrine functions
-		$bookApi = new BookFetch();
-		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
-		$books = $bookApi->listBookPerPage($number);
-		
-		$response->getBody()->write(json_encode($books));
-		return $response
-			->withHeader('Content-Type', 'application/json');
-	} catch(PDOEception $e){
-		echo '{"error": {"text":'.$e->getMessage().'}}';
+		if(is_int($args['number'])) {
+			// Get api object which executes doctrine functions
+			$bookApi = new BookFetch();
+			$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+			$books = $bookApi->listBookPerPage($number);
+			
+			$response->getBody()->write(json_encode($books));
+			
+			return $response
+				->withHeader('Content-Type', 'application/json');
+		}else{
+			throw new ErrorException("Number should be an integer");
+		}
+	} catch(Exception $e){
+		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
 	}
 });
 
 $app->get('/page/{number}', function (Request $request, Response $response, $args) {
 	
 	try{
+		if(is_int($args['number'])) {
 		// Get api object which executes doctrine functions
 		$bookApi = new BookFetch();
 		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
@@ -59,8 +64,31 @@ $app->get('/page/{number}', function (Request $request, Response $response, $arg
 		$response->getBody()->write(json_encode($books));
 		return $response
 			->withHeader('Content-Type', 'application/json');
-	} catch(PDOEception $e){
-		echo '{"error": {"text":'.$e->getMessage().'}}';
+		}else{
+			throw new ErrorException("Number should be an integer");
+		}
+	} catch(Exception $e){
+		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
+	}
+});
+
+$app->get('/search/{term}', function (Request $request, Response $response, $args) {
+	
+	try{
+		if((isset($args['term']) && !empty($args['term']))){
+		// Get api object which executes doctrine functions
+		$bookApi = new BookFetch();
+		$books = $bookApi->searchBooks($args['term']);
+		
+		$response->getBody()->write(json_encode($books));
+		return $response
+			->withHeader('Content-Type', 'application/json');
+		}else{
+			throw new ErrorException("Search term should not be empty");
+		}
+		
+	} catch(Exception $e){
+		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
 	}
 });
 
