@@ -5,10 +5,10 @@ use PDO;
 
 class MysqlDb{
 	// Properties
-	private $dbhost = CONFIG_DATABASE_MYSQL['dbhost'];
-	private $dbuser = CONFIG_DATABASE_MYSQL['dbuser'];
-	private $dbpass = CONFIG_DATABASE_MYSQL['dbpass'];
-	private $dbname = CONFIG_DATABASE_MYSQL['dbname'];
+	private $dbhost = CONFIG_DATABASE_MYSQL['host'];
+	private $dbuser = CONFIG_DATABASE_MYSQL['user'];
+	private $dbpass = CONFIG_DATABASE_MYSQL['pass'];
+	private $dbname = CONFIG_DATABASE_MYSQL['name'];
 	
 	// Connect to DB
 	public function connect(){

@@ -1,10 +1,10 @@
 <?php
 
 $dbInfo	= [
-			"dbhost"=> "localhost",
-			"dbuser" => "root",
-			"dbpass" => "1111",
-			"dbname" => "pressbooks"
+			"host"=> "localhost",
+			"user" => "root",
+			"pass" => "1111",
+			"name" => "pressbooks"
 ];
 
 define("CONFIG_DATABASE_MYSQL", $dbInfo);
