@@ -12,11 +12,14 @@ Use App\Api\BookFetch;
 
 
 $app = AppFactory::create();
+	$app->addRoutingMiddleware();
+	
+	$app->addErrorMiddleware(true, true, true);
 
 $app->get('/', function (Request $request, Response $response, $args) {
 	
 	try{
-		// Get Database Object
+		// Get api object which executes doctrine functions
 		$bookApi = new BookFetch();
 		
 		$books = $bookApi->listAllBooks();
@@ -28,5 +31,38 @@ $app->get('/', function (Request $request, Response $response, $args) {
 		echo '{"error": {"text":'.$e->getMessage().'}}';
 	}
 });
+
+$app->get('/per_page/{number}', function (Request $request, Response $response, $args) {
+	
+	try{
+		// Get api object which executes doctrine functions
+		$bookApi = new BookFetch();
+		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+		$books = $bookApi->listBookPerPage($number);
+		
+		$response->getBody()->write(json_encode($books));
+		return $response
+			->withHeader('Content-Type', 'application/json');
+	} catch(PDOEception $e){
+		echo '{"error": {"text":'.$e->getMessage().'}}';
+	}
+});
+
+$app->get('/page/{number}', function (Request $request, Response $response, $args) {
+	
+	try{
+		// Get api object which executes doctrine functions
+		$bookApi = new BookFetch();
+		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+		$books = $bookApi->listBookByPagenumber($number);
+		
+		$response->getBody()->write(json_encode($books));
+		return $response
+			->withHeader('Content-Type', 'application/json');
+	} catch(PDOEception $e){
+		echo '{"error": {"text":'.$e->getMessage().'}}';
+	}
+});
+
 
 $app->run();

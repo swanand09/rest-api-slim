@@ -14,10 +14,13 @@ class BookFetch
 	
 	private $entityManager;
 	
+	private $bookRepository;
+	
 	public function __construct()
 	{
 		$this->doctrineConfig = new DoctrineConfig();
 		$this->entityManager = $this->doctrineConfig->getEntityManager();
+		$this->bookRepository = $this->entityManager->getRepository(Books::class);
 	}
 	
 	
@@ -30,9 +33,22 @@ class BookFetch
 	{
 		//$conn = $this->entityManager->getConnection();
 		//$conn->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
-		$bookRepository = $this->entityManager->getRepository(Books::class);
-		$books = $bookRepository->findAll();
-		return $books;
+		
+		return $this->bookRepository->findAll();
+	}
+	
+	public function listBookPerPage(int $number)
+	{
+		if($number <= 100){
+			return $this->bookRepository->findBy([],[],$number);
+		}
+	}
+	
+	public function listBookByPagenumber(int $number)
+	{
+		$limit = $number*10;
+		$offset = $limit-10;
+		return $this->bookRepository->findBy([],[],$limit,$offset);
 	}
 	
 	public function __destruct()
