@@ -2,28 +2,24 @@
  ini_set('display_errors', 1);
  ini_set('display_startup_errors', 1);
  error_reporting(E_ALL);
-
+ 
+require_once __DIR__ . '/../vendor/autoload.php';
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
-use App\Db\MysqlDb;
+Use App\Api\BookFetch;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+
 
 $app = AppFactory::create();
 
-
-
 $app->get('/', function (Request $request, Response $response, $args) {
-	$sql = "SELECT * FROM books A INNER JOIN subject B on A.subject_id = B.id";
 	
 	try{
 		// Get Database Object
-		$mysqlDb = new MysqlDb();
-		//Connect
-		$mysqlDbConn = $mysqlDb->connect();
-		$stmt = $mysqlDbConn->query($sql);
-		$books = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$bookApi = new BookFetch();
+		
+		$books = $bookApi->listAllBooks();
 		
 		$response->getBody()->write(json_encode($books));
 		return $response

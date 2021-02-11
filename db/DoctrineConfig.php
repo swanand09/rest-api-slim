@@ -1,7 +1,11 @@
 <?php
+namespace App\Db;
 include_once "conf.php";
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 
 class DoctrineConfig
 {
@@ -10,6 +14,8 @@ class DoctrineConfig
     private $dbParams;
 
     private $configuration;
+    //private $entityManager;
+    private $driver;
 
     public function __construct()
     {
@@ -18,8 +24,12 @@ class DoctrineConfig
 
         $this->dbParams = $this->getDbParams();
 
-        $this->configuration = Setup::createAnnotationMetadataConfiguration($this->dbParams, $isDevMode);
-
+        $this->configuration = Setup::createConfiguration($isDevMode);
+	    //Setup::createAnnotationMetadataConfiguration($this->dbParams, $isDevMode);
+	    $this->driver = new AnnotationDriver(new AnnotationReader(), $this->paths);
+	    // registering noop annotation autoloader - allow all annotations by default
+	    AnnotationRegistry::registerLoader('class_exists');
+	    $this->configuration->setMetadataDriverImpl( $this->driver);
     }
 
     public function getPaths()
@@ -45,11 +55,13 @@ class DoctrineConfig
 
     public function getEntityManager()
     {
-        $this->configuration->addEntityNamespace("entities", "Doctrine\\entities");
+    	try {
+		    $this->configuration->addEntityNamespace("entities", "Doctrine\\entities");
 	
-	    $conn = EntityManager::getConnection();
-	    $conn->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
-        
-        return EntityManager::create($this->dbParams, $this->configuration);
+		    return EntityManager::create($this->dbParams, $this->configuration);
+		
+	    }catch(\Exception $e){
+    	
+	    }
     }
 }

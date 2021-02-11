@@ -2,6 +2,7 @@
 
 namespace Doctrine\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="books")
  *
  */
-class Books
+class Books implements \JsonSerializable
 {
 	/**
 	 * @ORM\Id
@@ -30,7 +31,7 @@ class Books
     protected $subject;
 
 
-    /** @ORM\Column(type="string","enum('AR','EN','ES','FR','ZH')") */
+    /** @ORM\Column(type="string") */
     protected $language;
 
     /** @ORM\Column(type="string") */
@@ -42,9 +43,16 @@ class Books
 	/** @ORM\Column(type="integer") */
 	protected $word_count;
 	
-	/** @ORM\Column(type="string") */
+	/** @ORM\Column(type="boolean") */
+	protected $is_original;
+	
+	/** @ORM\Column(type="string",nullable=true) */
 	protected $based_on;
-
+	
+	function __construct()
+	{
+		$this->subject = new ArrayCollection();
+	}
    
     public function get_id()
     {
@@ -122,6 +130,16 @@ class Books
 		$this->word_count = $word_count;
 	}
 	
+	public function get_is_original()
+	{
+		return $this->is_original;
+	}
+	
+	public function set_is_original($is_original)
+	{
+		$this->is_original = $is_original;
+	}
+	
 	public function get_based_on()
 	{
 		return $this->based_on;
@@ -134,15 +152,26 @@ class Books
 	
     public function jsonSerialize()
     {
-        return [
+        return (!is_null($this->get_based_on()) || !empty(trim($this->get_based_on())) ) ? [
         	 "id" => $this->get_id()
             , "subject" => $this->get_subject()
             , "title" => $this->get_title()
             , "url" => $this->get_url()
             , "language" => $this->get_language()
 	        , "word_count" => $this->get_word_count()
-	        , "based_on" => $this->get_based_on()
+	        , "is_original" => $this->get_is_original()
+	        , "based_on" =>  $this->get_based_on()
          
-        ];
+        ] :
+	        [
+		        "id" => $this->get_id()
+		        , "subject" => $this->get_subject()
+		        , "title" => $this->get_title()
+		        , "url" => $this->get_url()
+		        , "language" => $this->get_language()
+		        , "word_count" => $this->get_word_count()
+		        , "is_original" => $this->get_is_original()
+	        ]
+	    ;
     }
 }

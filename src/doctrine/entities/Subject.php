@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="subject")
  *
  */
-class Subject
+class Subject implements \JsonSerializable
 {
 	/**
 	 * @ORM\Id
@@ -19,7 +19,7 @@ class Subject
     protected $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", columnDefinition="UNSIGED INTEGER(3) ZEROFILL")
      */
     protected $identifier;
 
@@ -66,9 +66,8 @@ class Subject
     public function jsonSerialize()
     {
         return [
-        	 "id" => $this->get_id()
-            , "identifier" => $this->get_identifier()
-            , "name" => $this->name()
+             "identifier" => $this->get_identifier()
+            , "name" => $this->get_name()
         ];
     }
 }
