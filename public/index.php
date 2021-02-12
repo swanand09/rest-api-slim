@@ -1,7 +1,7 @@
 <?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ ini_set('display_errors', 1);
+ ini_set('display_startup_errors', 1);
+ error_reporting(E_ALL);
  
 require_once __DIR__ . '/../vendor/autoload.php';
 use Psr\Http\Message\ResponseInterface as Response;
@@ -31,7 +31,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
 	}
 });
 
-$app->get('/per_page/{number}', function (Request $request, Response $response, $args) {
+$app->get('/per_page[/{number:.*}]', function (Request $request, Response $response, $args) {
 	
 	try{
 		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
@@ -53,10 +53,10 @@ $app->get('/per_page/{number}', function (Request $request, Response $response, 
 	}
 });
 
-$app->get('/page/{number}', function (Request $request, Response $response, $args) {
+$app->get('/page[/{number:.*}]', function (Request $request, Response $response, $args) {
 	
 	try{
-		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 1;
 		if($number >=1) {
 		// Get api object which executes doctrine functions
 		$bookApi = new BookFetch();
@@ -74,13 +74,14 @@ $app->get('/page/{number}', function (Request $request, Response $response, $arg
 	}
 });
 
-$app->get('/search/{term}', function (Request $request, Response $response, $args) {
+$app->get('/search[/{term:.*}]', function (Request $request, Response $response, $args) {
 	
 	try{
-		if((isset($args['term']) && !empty($args['term']))){
+		$term = (isset($args['term']) && !empty($args['term'])) ? $args['term'] : null;
+		if(!is_null($term)){
 		// Get api object which executes doctrine functions
 		$bookApi = new BookFetch();
-		$books = $bookApi->searchBooks($args['term']);
+		$books = $bookApi->searchBooks($term);
 		
 		$response->getBody()->write(json_encode($books));
 		return $response
