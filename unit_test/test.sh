@@ -1,6 +1,7 @@
 #!/bin/bash
 array=(
 /
+/gsg
 /per_page
 /per_page/
 /per_page/1
