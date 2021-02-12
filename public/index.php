@@ -20,11 +20,13 @@ $app->get('/', function (Request $request, Response $response, $args) {
 		
 		$books = $bookApi->listAllBooks();
 		
-		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 		return $response
 			->withHeader('Content-Type', 'application/json');
 	} catch(Exception $e){
-		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
+		$response->getBody()->write(json_encode(["error"=>["text"=>$e->getMessage()]]));
+		return $response
+			->withHeader('Content-Type', 'application/json');
 	}
 });
 
@@ -38,7 +40,7 @@ $app->get('/per_page[/{number:.*}]', function (Request $request, Response $respo
 			
 			$books = $bookApi->listBookPerPage($number);
 			
-			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT  |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 			
 			return $response
 				->withHeader('Content-Type', 'application/json');
@@ -46,7 +48,9 @@ $app->get('/per_page[/{number:.*}]', function (Request $request, Response $respo
 			throw new \ErrorException("Number should be an integer");
 		}
 	} catch(ErrorException $e){
-		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
+		$response->getBody()->write(json_encode(["error"=>["text"=>$e->getMessage()]]));
+		return $response
+			->withHeader('Content-Type', 'application/json');
 	}
 });
 
@@ -60,14 +64,16 @@ $app->get('/page[/{number:.*}]', function (Request $request, Response $response,
 		
 		$books = $bookApi->listBookByPagenumber($number);
 		
-		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT  |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 		return $response
 			->withHeader('Content-Type', 'application/json');
 		}else{
 			throw new \ErrorException("Number should be an integer");
 		}
 	} catch(ErrorException $e){
-		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
+		$response->getBody()->write(json_encode(["error"=>["text"=>$e->getMessage()]]));
+		return $response
+			->withHeader('Content-Type', 'application/json');
 	}
 });
 
@@ -80,7 +86,7 @@ $app->get('/search[/{term:.*}]', function (Request $request, Response $response,
 		$bookApi = new BookFetch();
 		$books = $bookApi->searchBooks($term);
 		
-		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT  |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 		return $response
 			->withHeader('Content-Type', 'application/json');
 		}else{
@@ -88,7 +94,9 @@ $app->get('/search[/{term:.*}]', function (Request $request, Response $response,
 		}
 		
 	} catch(ErrorException $e){
-		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
+		$response->getBody()->write(json_encode(["error"=>["text"=>$e->getMessage()]]));
+		return $response
+			->withHeader('Content-Type', 'application/json');
 	}
 });
 
@@ -102,7 +110,7 @@ $app->get('/is_original[/{number:.*}]', function (Request $request, Response $re
 				$bookApi = new BookFetch();
 				$books = $bookApi->listBookByOriginal($number);
 				
-				$response->getBody()->write(json_encode($books, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+				$response->getBody()->write(json_encode($books, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 				
 				return $response
 					->withHeader('Content-Type', 'application/json');
@@ -114,7 +122,9 @@ $app->get('/is_original[/{number:.*}]', function (Request $request, Response $re
 		}
 		
 	} catch(ErrorException $e){
-		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
+		$response->getBody()->write(json_encode(["error"=>["text"=>$e->getMessage()]]));
+		return $response
+			->withHeader('Content-Type', 'application/json');
 	}
 });
 	
@@ -128,7 +138,7 @@ $app->get('/subject[/{identifier:.*}]', function (Request $request, Response $re
 			$bookApi = new BookFetch();
 			$books = $bookApi->listBookBySubject($identifier);
 			
-			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 			return $response
 				->withHeader('Content-Type', 'application/json');
 		}else{
@@ -136,7 +146,9 @@ $app->get('/subject[/{identifier:.*}]', function (Request $request, Response $re
 		}
 		
 	} catch(ErrorException $e){
-		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
+		$response->getBody()->write(json_encode(["error"=>["text"=>$e->getMessage()]]));
+		return $response
+			->withHeader('Content-Type', 'application/json');
 	}
 });
 
