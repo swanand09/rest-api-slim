@@ -8,6 +8,7 @@ use App\Db\DoctrineConfig;
 use Doctrine\Entities\Books;
 use Doctrine\Entities\Subject;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 class BookFetch
 {
@@ -57,15 +58,20 @@ class BookFetch
 	
 	public function searchBooks(string $term)
 	{
-		$rsm = new ResultSetMapping();
 		
+		$rsm = new ResultSetMappingBuilder($this->entityManager);
 		// Specify the object type to be returned in results
-		$rsm->addEntityResult('Doctrine\Entities\Books', 'b');
+		$rsm->addRootEntityFromClassMetadata('Doctrine\Entities\Books', 'b');
+		//$rsm->addJoinedEntityFromClassMetadata('Doctrine\Entities\Subject', 's', 'b', 'subject', array('id' => 'subject_id'));
+		
+		//$rsm = new ResultSetMapping();
+		//$rsm->addEntityResult('Doctrine\Entities\Books', 'b');
 	   //$rsm->addEntityResult('Doctrine\Entities\Subject', 's');
-		$query = $this->entityManager->createNativeQuery("SELECT b.* FROM books b INNER JOIN subject s ON b.subject_id = s.id WHERE MATCH(b.title)AGAINST (:term1 IN NATURAL LANGUAGE MODE) OR MATCH(s.name) AGAINST (:term2 IN NATURAL LANGUAGE MODE) ORDER BY b.title ASC",$rsm);
-		$query->setParameters(
-			['term1' => $term,'term2' => $term]
-		);
+		
+		$sql = "SELECT b.* FROM books b INNER JOIN subject s ON b.subject_id = s.id WHERE MATCH(b.title)AGAINST (:term IN NATURAL LANGUAGE MODE)
+                OR MATCH(s.name) AGAINST (:term IN NATURAL LANGUAGE MODE) ORDER BY b.title ASC";
+		$query = $this->entityManager->createNativeQuery($sql,$rsm);
+		$query->setParameter('term',$term);
 		return $query->getResult();
 	}
 	
