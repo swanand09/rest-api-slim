@@ -30,7 +30,8 @@ array=(
 /is_original
 /is_original/
 /is_original/0
-/is_original/2
+/is_original/1
+/is_original/11
 /subject
 /subject/
 /subject/01

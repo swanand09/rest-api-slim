@@ -17,7 +17,8 @@
             "App\\Api\\": "src/api",
             "App\\Tests\\": "tests/",
             "App\\Db\\": "db/",
-            "Doctrine\\Entities\\": "src/doctrine/entities"
+            "Doctrine\\Entities\\": "src/doctrine/entities",
+            "App\\Controller\\": "src/controller"
         }
     },
     "config": {
