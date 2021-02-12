@@ -75,6 +75,21 @@ class BookFetch
 		return $query->getResult();
 	}
 	
+	public function listBookByOriginal($isOriginal)
+	{
+		return $this->bookRepository->findBy(['is_original'=>$isOriginal],['title'=>'ASC']);
+	}
+	
+	public function listBookBySubject($identifier)
+	{
+		$rsm = new ResultSetMappingBuilder($this->entityManager);
+		$rsm->addRootEntityFromClassMetadata('Doctrine\Entities\Books', 'b');
+		$sql = "SELECT b.* FROM books b INNER JOIN subject s ON b.subject_id = s.id WHERE s.identifier=:identifier ORDER BY b.title ASC";
+		$query = $this->entityManager->createNativeQuery($sql,$rsm);
+		$query->setParameter('identifier',$identifier);
+		return $query->getResult();
+	}
+	
 	public function __destruct()
 	{
 	
