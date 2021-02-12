@@ -50,7 +50,7 @@ class BookFetch
 		if($number <= 100){
 			return $this->bookRepository->findBy([],[],$number);
 		}else{
-			throw new ErrorException("Number should be a max of 100");
+			throw new \ErrorException("Number should be a max of 100");
 		}
 	}
 	

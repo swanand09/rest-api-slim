@@ -42,9 +42,9 @@ $app->get('/per_page[/{number:.*}]', function (Request $request, Response $respo
 			return $response
 				->withHeader('Content-Type', 'application/json');
 		}else{
-			throw new ErrorException("Number should be an integer");
+			throw new \ErrorException("Number should be an integer");
 		}
-	} catch(Exception $e){
+	} catch(ErrorException $e){
 		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
 	}
 });
@@ -63,9 +63,9 @@ $app->get('/page[/{number:.*}]', function (Request $request, Response $response,
 		return $response
 			->withHeader('Content-Type', 'application/json');
 		}else{
-			throw new ErrorException("Number should be an integer");
+			throw new \ErrorException("Number should be an integer");
 		}
-	} catch(Exception $e){
+	} catch(ErrorException $e){
 		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
 	}
 });
@@ -83,10 +83,10 @@ $app->get('/search[/{term:.*}]', function (Request $request, Response $response,
 		return $response
 			->withHeader('Content-Type', 'application/json');
 		}else{
-			throw new ErrorException("Search term should not be empty");
+			throw new \ErrorException("Search term should not be empty");
 		}
 		
-	} catch(Exception $e){
+	} catch(ErrorException $e){
 		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
 	}
 });
@@ -104,10 +104,10 @@ $app->get('/is_original[/{number:.*}]', function (Request $request, Response $re
 			return $response
 				->withHeader('Content-Type', 'application/json');
 		}else{
-			throw new ErrorException("second parameter should be either 1 or 0");
+			throw new \ErrorException("second parameter should be either 1 or 0");
 		}
 		
-	} catch(Exception $e){
+	} catch(ErrorException $e){
 		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
 	}
 });
@@ -126,10 +126,10 @@ $app->get('/subject[/{identifier:.*}]', function (Request $request, Response $re
 			return $response
 				->withHeader('Content-Type', 'application/json');
 		}else{
-			throw new ErrorException("Second parameter should not be empty and should be an integer");
+			throw new \ErrorException("Second parameter should not be empty and should be an integer");
 		}
 		
-	} catch(Exception $e){
+	} catch(ErrorException $e){
 		echo json_encode(["error"=>["text"=>$e->getMessage()]]);
 	}
 });
