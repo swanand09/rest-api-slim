@@ -10,6 +10,7 @@ use Slim\Factory\AppFactory;
 Use App\Api\BookFetch;
 
 $app = AppFactory::create();
+$app->addErrorMiddleware(false, false, false);
 
 $app->get('/', function (Request $request, Response $response, $args) {
 	
@@ -94,15 +95,20 @@ $app->get('/search[/{term:.*}]', function (Request $request, Response $response,
 $app->get('/is_original[/{number:.*}]', function (Request $request, Response $response, $args) {
 	
 	try{
-		$number = (isset($args['number']) && $args['number']!=='') ? intval($args['number']) : null;
-		if(!is_null($number) && ($number >=0 && $number<=1)){
-			// Get api object which executes doctrine functions
-			$bookApi = new BookFetch();
-			$books = $bookApi->listBookByOriginal($number);
-			
-			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
-			return $response
-				->withHeader('Content-Type', 'application/json');
+		if($args['number'] ==="1" || $args['number']==="0") {
+			$number = (isset($args['number']) && $args['number'] !== '') ? intval($args['number']) : null;
+			if (!is_null($number) && ($number >= 0 && $number <= 1)) {
+				// Get api object which executes doctrine functions
+				$bookApi = new BookFetch();
+				$books = $bookApi->listBookByOriginal($number);
+				
+				$response->getBody()->write(json_encode($books, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+				
+				return $response
+					->withHeader('Content-Type', 'application/json');
+			} else {
+				throw new \ErrorException("second parameter should be either 1 or 0");
+			}
 		}else{
 			throw new \ErrorException("second parameter should be either 1 or 0");
 		}
