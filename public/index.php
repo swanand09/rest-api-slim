@@ -34,10 +34,11 @@ $app->get('/', function (Request $request, Response $response, $args) {
 $app->get('/per_page/{number}', function (Request $request, Response $response, $args) {
 	
 	try{
-		if(is_int($args['number'])) {
+		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+		if($number >=1) {
 			// Get api object which executes doctrine functions
 			$bookApi = new BookFetch();
-			$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+			
 			$books = $bookApi->listBookPerPage($number);
 			
 			$response->getBody()->write(json_encode($books));
@@ -55,10 +56,11 @@ $app->get('/per_page/{number}', function (Request $request, Response $response, 
 $app->get('/page/{number}', function (Request $request, Response $response, $args) {
 	
 	try{
-		if(is_int($args['number'])) {
+		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+		if($number >=1) {
 		// Get api object which executes doctrine functions
 		$bookApi = new BookFetch();
-		$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+		
 		$books = $bookApi->listBookByPagenumber($number);
 		
 		$response->getBody()->write(json_encode($books));
