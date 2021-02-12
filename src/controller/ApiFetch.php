@@ -40,7 +40,7 @@ class ApiFetch {
 		return $bookApi->listAllBooks();
 	}
 	
-	public function listBookPerPage($args)
+	private function listBookPerPage($args)
 	{
 		try {
 			$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
@@ -59,7 +59,7 @@ class ApiFetch {
 	}
 	
 	
-	public function listBookByPagenumber($args)
+	private function listBookByPagenumber($args)
 	{
 		try {
 			$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 1;
@@ -79,7 +79,7 @@ class ApiFetch {
 		}
 	}
 	
-	public function searchBooks($args)
+	private function searchBooks($args)
 	{
 		try {
 			
@@ -101,7 +101,7 @@ class ApiFetch {
 	}
 	
 	
-	public function listBookByOriginal($args)
+	private function listBookByOriginal($args)
 	{
 		try {
 			
@@ -127,7 +127,7 @@ class ApiFetch {
 		}
 	}
 	
-	public function listBookBySubject($args)
+	private function listBookBySubject($args)
 	{
 		try {
 			$identifier = (isset($args['identifier']) && $args['identifier']!=='') ? intval($args['identifier']) : null;
