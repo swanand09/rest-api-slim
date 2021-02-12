@@ -5,6 +5,13 @@ use Psr\Http\Message\ResponseInterface as Response;
 
 class ApiFetch {
 	
+	/**
+	 * @param $funcName
+	 * @param $response
+	 * @param array $urlParams
+	 * @return Response
+	 * to execute the api fetch from various api functions
+	 */
 	public function execute($funcName,$response,$urlParams=[]) :Response
 	{
 		try{
