@@ -1,4 +1,4 @@
-# Pressbooks Assessment Restfull API for Fullstack Dev
+# Pressbooks Assessment Restful API for Fullstack Dev
 
 ## Requirements
 - PHP >= 7.2 
