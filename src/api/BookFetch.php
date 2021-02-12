@@ -40,6 +40,11 @@ class BookFetch
 		return $this->bookRepository->findAll();
 	}
 	
+	/**
+	 * @param int $number
+	 * @return array|object[]
+	 * list the given number of Books per page
+	 */
 	public function listBookPerPage(int $number)
 	{
 		if($number <= 100){
@@ -49,6 +54,11 @@ class BookFetch
 		}
 	}
 	
+	/**
+	 * @param int $number
+	 * @return array|object[]
+	 * list 10 books on page given the number
+	 */
 	public function listBookByPagenumber(int $number)
 	{
 		$limit = $number*10;
@@ -56,6 +66,11 @@ class BookFetch
 		return $this->bookRepository->findBy([],[],$limit,$offset);
 	}
 	
+	/**
+	 * @param string $term
+	 * @return int|mixed|string
+	 * find books full text search on book.title and subject.name columns
+	 */
 	public function searchBooks(string $term)
 	{
 		
@@ -75,6 +90,11 @@ class BookFetch
 		return $query->getResult();
 	}
 	
+	/**
+	 * @param $isOriginal
+	 * @return array|object[]
+	 * list books by is_original
+	 */
 	public function listBookByOriginal($isOriginal)
 	{
 		return $this->bookRepository->findBy(['is_original'=>$isOriginal],['title'=>'ASC']);

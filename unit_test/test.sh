@@ -19,6 +19,10 @@ array=(
 /search/century
 /search/textbooks
 /search/guide
+/search/紅樓夢
+/search/三國演義
+/search/التدريس عبر
+/search/edición
 /is_original
 /is_original/
 /is_original/0

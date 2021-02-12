@@ -9,11 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 Use App\Api\BookFetch;
 
-
-
 $app = AppFactory::create();
-//$app->addRoutingMiddleware();
-//$app->addErrorMiddleware(true, true, true);
 
 $app->get('/', function (Request $request, Response $response, $args) {
 	
@@ -23,7 +19,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
 		
 		$books = $bookApi->listAllBooks();
 		
-		$response->getBody()->write(json_encode($books));
+		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 		return $response
 			->withHeader('Content-Type', 'application/json');
 	} catch(Exception $e){
@@ -41,7 +37,7 @@ $app->get('/per_page[/{number:.*}]', function (Request $request, Response $respo
 			
 			$books = $bookApi->listBookPerPage($number);
 			
-			$response->getBody()->write(json_encode($books));
+			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 			
 			return $response
 				->withHeader('Content-Type', 'application/json');
@@ -63,7 +59,7 @@ $app->get('/page[/{number:.*}]', function (Request $request, Response $response,
 		
 		$books = $bookApi->listBookByPagenumber($number);
 		
-		$response->getBody()->write(json_encode($books));
+		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 		return $response
 			->withHeader('Content-Type', 'application/json');
 		}else{
@@ -83,7 +79,7 @@ $app->get('/search[/{term:.*}]', function (Request $request, Response $response,
 		$bookApi = new BookFetch();
 		$books = $bookApi->searchBooks($term);
 		
-		$response->getBody()->write(json_encode($books));
+		$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 		return $response
 			->withHeader('Content-Type', 'application/json');
 		}else{
@@ -104,7 +100,7 @@ $app->get('/is_original[/{number:.*}]', function (Request $request, Response $re
 			$bookApi = new BookFetch();
 			$books = $bookApi->listBookByOriginal($number);
 			
-			$response->getBody()->write(json_encode($books));
+			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 			return $response
 				->withHeader('Content-Type', 'application/json');
 		}else{
@@ -126,7 +122,7 @@ $app->get('/subject[/{identifier:.*}]', function (Request $request, Response $re
 			$bookApi = new BookFetch();
 			$books = $bookApi->listBookBySubject($identifier);
 			
-			$response->getBody()->write(json_encode($books));
+			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 			return $response
 				->withHeader('Content-Type', 'application/json');
 		}else{
