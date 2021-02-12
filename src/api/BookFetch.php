@@ -100,6 +100,11 @@ class BookFetch
 		return $this->bookRepository->findBy(['is_original'=>$isOriginal],['title'=>'ASC']);
 	}
 	
+	/**
+	 * @param $identifier
+	 * @return int|mixed|string
+	 * List all books by subject identifier, e.g 001, 002
+	 */
 	public function listBookBySubject($identifier)
 	{
 		$rsm = new ResultSetMappingBuilder($this->entityManager);
