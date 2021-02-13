@@ -27,8 +27,7 @@ class BookFetch
 	}
 	
 	
-	public function getEntityManager()
-	: \Doctrine\ORM\EntityManager {
+	public function getEntityManager(): \Doctrine\ORM\EntityManager {
 		return $this->entityManager;
 	}
 	
