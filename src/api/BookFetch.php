@@ -15,7 +15,7 @@ class BookFetch
 	
 	private DoctrineConfig $doctrineConfig;
 	
-	private $entityManager;
+	private \Doctrine\ORM\EntityManager $entityManager;
 	
 	private $bookRepository;
 	
@@ -28,7 +28,7 @@ class BookFetch
 	
 	
 	public function getEntityManager()
-	{
+	: \Doctrine\ORM\EntityManager {
 		return $this->entityManager;
 	}
 	
