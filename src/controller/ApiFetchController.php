@@ -2,21 +2,20 @@
 namespace App\Controller;
 Use App\Api\BookFetch;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
-class ApiFetch {
+class ApiFetchController {
 	
 	/**
-	 * @param $funcName
-	 * @param $response
-	 * @param array $urlParams
+	 * @param $books
+	 * @param Response $response
 	 * @return Response
 	 * to execute the api fetch from various api functions
 	 */
-	public function execute($funcName,$response,$urlParams=[]) :Response
+	private function execute($books,Response $response) :Response
 	{
 		try{
 			
-			$books = $this->$funcName($urlParams);
 			if(isset($books['error'])){
 				throw new \ErrorException($books['error']);
 			}
@@ -31,16 +30,27 @@ class ApiFetch {
 		}
 	}
 	
-	
-	private function listAllBooks($args)
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return Response
+	 */
+	public function listAllBooks(Request $request, Response $response, $args) :Response
 	{
 		// Get api object which executes doctrine functions
 		$bookApi = new BookFetch();
 		
-		return $bookApi->listAllBooks();
+		return $this->execute($bookApi->listAllBooks(),$response);
 	}
 	
-	private function listBookPerPage($args)
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return Response
+	 */
+	public function listBookPerPage(Request $request, Response $response, $args) :Response
 	{
 		try {
 			$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
@@ -48,18 +58,23 @@ class ApiFetch {
 				// Get api object which executes doctrine functions
 				$bookApi = new BookFetch();
 				
-				return $bookApi->listBookPerPage($number);
+				return $this->execute($bookApi->listBookPerPage($number),$response);
 				
 			} else {
 				throw new \ErrorException("Number should be an integer");
 			}
 		}catch(\ErrorException $e){
-			return ["error"=>$e->getMessage()];
+			return $this->execute(["error"=>$e->getMessage()],$response);
 		}
 	}
 	
-	
-	private function listBookByPagenumber($args)
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return Response
+	 */
+	public function listBookByPageNumber(Request $request, Response $response, $args) :Response
 	{
 		try {
 			$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 1;
@@ -67,7 +82,7 @@ class ApiFetch {
 				// Get api object which executes doctrine functions
 				$bookApi = new BookFetch();
 				
-				return $bookApi->listBookByPagenumber($number);
+				return $this->execute($bookApi->listBookByPageNumber($number),$response);
 				
 			}else{
 				
@@ -75,11 +90,17 @@ class ApiFetch {
 			}
 		}catch(\ErrorException $e){
 			
-			return ["error"=>$e->getMessage()];
+			return $this->execute(["error"=>$e->getMessage()],$response);
 		}
 	}
 	
-	private function searchBooks($args)
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return Response
+	 */
+	public function searchBooks(Request $request, Response $response, $args) :Response
 	{
 		try {
 			
@@ -88,7 +109,7 @@ class ApiFetch {
 				
 				// Get api object which executes doctrine functions
 				$bookApi = new BookFetch();
-				return $bookApi->searchBooks($term);
+				return $this->execute($bookApi->searchBooks($term),$response);
 				
 			}else{
 				
@@ -96,12 +117,17 @@ class ApiFetch {
 			}
 		}catch(\ErrorException $e){
 			
-			return ["error"=>$e->getMessage()];
+			return $this->execute(["error"=>$e->getMessage()],$response);
 		}
 	}
 	
-	
-	private function listBookByOriginal($args)
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return Response
+	 */
+	public function listBookByOriginal(Request $request, Response $response, $args) :Response
 	{
 		try {
 			
@@ -112,7 +138,7 @@ class ApiFetch {
 					
 					// Get api object which executes doctrine functions
 					$bookApi = new BookFetch();
-					return $bookApi->listBookByOriginal($number);
+					return $this->execute($bookApi->listBookByOriginal($number),$response);
 				} else {
 					
 					throw new \ErrorException("second parameter should be either 1 or 0");
@@ -123,11 +149,17 @@ class ApiFetch {
 			}
 		}catch(\ErrorException $e){
 			
-			return ["error"=>$e->getMessage()];
+			return $this->execute(["error"=>$e->getMessage()],$response);
 		}
 	}
 	
-	private function listBookBySubject($args)
+	/**
+	 * @param Request $request
+	 * @param Response $response
+	 * @param $args
+	 * @return Response
+	 */
+	public function listBookBySubject(Request $request, Response $response, $args) :Response
 	{
 		try {
 			$identifier = (isset($args['identifier']) && $args['identifier']!=='') ? intval($args['identifier']) : null;
@@ -135,14 +167,14 @@ class ApiFetch {
 				
 				// Get api object which executes doctrine functions
 				$bookApi = new BookFetch();
-				return $bookApi->listBookBySubject($identifier);
+				return $this->execute($bookApi->listBookBySubject($identifier),$response);
 			}else{
 				
 				throw new \ErrorException("Second parameter should not be empty and should be an integer");
 			}
 		}catch(\ErrorException $e){
 			
-			return ["error"=>$e->getMessage()];
+			return $this->execute(["error"=>$e->getMessage()],$response);
 		}
 	}
 }

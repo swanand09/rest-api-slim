@@ -45,7 +45,7 @@ class BookFetch
 	 * @return array|object[]
 	 * list the given number of Books per page
 	 */
-	public function listBookPerPage(int $number)
+	public function listBookPerPage(int $number): Array
 	{
 		if($number <= 100){
 			return $this->bookRepository->findBy([],[],$number);
@@ -59,7 +59,7 @@ class BookFetch
 	 * @return array|object[]
 	 * list 10 books on page given the number
 	 */
-	public function listBookByPagenumber(int $number)
+	public function listBookByPageNumber(int $number) :Array
 	{
 		$limit = $number*10;
 		$offset = $limit-10;
@@ -71,7 +71,7 @@ class BookFetch
 	 * @return int|mixed|string
 	 * find books full text search on book.title and subject.name columns
 	 */
-	public function searchBooks(string $term)
+	public function searchBooks(string $term) :Array
 	{
 		
 		$rsm = new ResultSetMappingBuilder($this->entityManager);
@@ -95,7 +95,7 @@ class BookFetch
 	 * @return array|object[]
 	 * list books by is_original
 	 */
-	public function listBookByOriginal($isOriginal)
+	public function listBookByOriginal($isOriginal):Array
 	{
 		return $this->bookRepository->findBy(['is_original'=>$isOriginal],['title'=>'ASC']);
 	}
@@ -105,7 +105,7 @@ class BookFetch
 	 * @return int|mixed|string
 	 * List all books by subject identifier, e.g 001, 002
 	 */
-	public function listBookBySubject($identifier)
+	public function listBookBySubject($identifier) :Array
 	{
 		$rsm = new ResultSetMappingBuilder($this->entityManager);
 		$rsm->addRootEntityFromClassMetadata('Doctrine\Entities\Books', 'b');
