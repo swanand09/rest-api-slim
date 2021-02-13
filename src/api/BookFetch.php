@@ -13,7 +13,7 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
 class BookFetch
 {
 	
-	private $doctrineConfig;
+	private DoctrineConfig $doctrineConfig;
 	
 	private $entityManager;
 	
@@ -32,7 +32,10 @@ class BookFetch
 		return $this->entityManager;
 	}
 	
-	public function listAllBooks()
+	/**
+	 * @return Array
+	 */
+	public function listAllBooks() : Array
 	{
 		//$conn = $this->entityManager->getConnection();
 		//$conn->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
@@ -42,8 +45,9 @@ class BookFetch
 	
 	/**
 	 * @param int $number
-	 * @return array|object[]
+	 * @return Array list the given number of Books per page
 	 * list the given number of Books per page
+	 * @throws \ErrorException
 	 */
 	public function listBookPerPage(int $number): Array
 	{
@@ -56,7 +60,7 @@ class BookFetch
 	
 	/**
 	 * @param int $number
-	 * @return array|object[]
+	 * @return Array list 10 books on page given the number
 	 * list 10 books on page given the number
 	 */
 	public function listBookByPageNumber(int $number) :Array
@@ -68,7 +72,7 @@ class BookFetch
 	
 	/**
 	 * @param string $term
-	 * @return int|mixed|string
+	 * @return Array find books full text search on book.title and subject.name columns
 	 * find books full text search on book.title and subject.name columns
 	 */
 	public function searchBooks(string $term) :Array
@@ -92,7 +96,7 @@ class BookFetch
 	
 	/**
 	 * @param $isOriginal
-	 * @return array|object[]
+	 * @return Array list books by is_original
 	 * list books by is_original
 	 */
 	public function listBookByOriginal($isOriginal):Array
@@ -102,7 +106,7 @@ class BookFetch
 	
 	/**
 	 * @param $identifier
-	 * @return int|mixed|string
+	 * @return Array List all books by subject identifier, e.g 001, 002
 	 * List all books by subject identifier, e.g 001, 002
 	 */
 	public function listBookBySubject($identifier) :Array

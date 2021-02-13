@@ -9,13 +9,13 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 
 class DoctrineConfig
 {
-    private $paths;
+    private array $paths;
 
-    private $dbParams;
+    private array $dbParams;
 
-    private $configuration;
+    private \Doctrine\ORM\Configuration $configuration;
     //private $entityManager;
-    private $driver;
+    private AnnotationDriver $driver;
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class DoctrineConfig
 	    $this->configuration->setMetadataDriverImpl( $this->driver);
     }
 
-    public function getPaths()
+    public function getPaths() :Array
     {
         return [
             __DIR__ . "/../src/doctrine/entities/"
@@ -40,7 +40,7 @@ class DoctrineConfig
     }
 
 
-    public function getDbParams()
+    public function getDbParams() :Array
     {
 
         // the connection configuration
@@ -53,7 +53,7 @@ class DoctrineConfig
         ];
     }
 
-    public function getEntityManager()
+    public function getEntityManager(): EntityManager
     {
     	try {
 		    $this->configuration->addEntityNamespace("entities", "Doctrine\\entities");
