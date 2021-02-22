@@ -1,4 +1,4 @@
-# Pressbooks Assessment Restful API for Fullstack Dev
+# A Rest API using slim
 
 ## Requirements
 - PHP >= 7.2 
