@@ -33,10 +33,9 @@ class ApiFetchController {
 	/**
 	 * @param Request $request
 	 * @param Response $response
-	 * @param $args
 	 * @return Response
 	 */
-	public function listAllBooks(Request $request, Response $response, $args) :Response
+	public function listAllBooks(Request $request, Response $response) :Response
 	{
 		// Get api object which executes doctrine functions
 		$bookApi = new BookFetch();
@@ -47,13 +46,15 @@ class ApiFetchController {
 	/**
 	 * @param Request $request
 	 * @param Response $response
-	 * @param $args
 	 * @return Response
 	 */
-	public function listBookPerPage(Request $request, Response $response, $args) :Response
+	public function listBookPerPage(Request $request, Response $response) :Response
 	{
 		try {
-			$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+			 //args are used when there are path params
+			//$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 10;
+			
+			$number = (int)$request->getQueryParams()['per_page'];
 			if ($number >= 1) {
 				// Get api object which executes doctrine functions
 				$bookApi = new BookFetch();
@@ -71,13 +72,14 @@ class ApiFetchController {
 	/**
 	 * @param Request $request
 	 * @param Response $response
-	 * @param $args
 	 * @return Response
 	 */
-	public function listBookByPageNumber(Request $request, Response $response, $args) :Response
+	public function listBookByPageNumber(Request $request, Response $response) :Response
 	{
 		try {
-			$number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 1;
+			// $number = (isset($args['number']) && !empty($args['number'])) ? (int)$args['number'] : 1;
+			
+			$number = (int)$request->getQueryParams()['page'];
 			if($number >=1) {
 				// Get api object which executes doctrine functions
 				$bookApi = new BookFetch();
@@ -97,14 +99,15 @@ class ApiFetchController {
 	/**
 	 * @param Request $request
 	 * @param Response $response
-	 * @param $args
 	 * @return Response
 	 */
-	public function searchBooks(Request $request, Response $response, $args) :Response
+	public function searchBooks(Request $request, Response $response) :Response
 	{
 		try {
 			
-			$term = (isset($args['term']) && !empty($args['term'])) ? $args['term'] : null;
+			//$term = (isset($args['term']) && !empty($args['term'])) ? $args['term'] : null;
+			
+			$term = $number = (int)$request->getQueryParams()['subject'];
 			if(!is_null($term)){
 				
 				// Get api object which executes doctrine functions
