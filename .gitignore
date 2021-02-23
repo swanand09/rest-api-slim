@@ -1,2 +1,3 @@
 .idea/
 /vendor/
+/client/node_modules/

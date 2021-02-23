@@ -100,7 +100,7 @@ $middlewareHandleReq = function  (Request $request, RequestHandler $handler) {
 	}
 	
 };
-$app->get('/list-all/',  ApiFetchController::class . ':listAllBooks')->add($middlewareHandleReq);
+$app->get('/',  ApiFetchController::class . ':listAllBooks');//->add($middlewareHandleReq);
 	
 //$app->get('/per_page[/{number:.*}]',  ApiFetchController::class . ':listBookPerPage');  this is path param
 
