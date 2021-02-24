@@ -11,6 +11,8 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Middlewares\TrailingSlash;
+	
+
 
 $app = AppFactory::create();
 $app->add(new TrailingSlash(true));

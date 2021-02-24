@@ -21,8 +21,9 @@ class DoctrineConfig
     {
         $this->paths = $this->getPaths();
         $isDevMode = true;
+	    
 
-        $this->dbParams = $this->getDbParams();
+        $this->dbParams = CONFIG_DATABASE_MYSQL;
 
         $this->configuration = Setup::createConfiguration($isDevMode);
 	    //Setup::createAnnotationMetadataConfiguration($this->dbParams, $isDevMode);
@@ -39,7 +40,7 @@ class DoctrineConfig
         ];
     }
 
-
+	/*
     public function getDbParams() :Array
     {
 
@@ -52,6 +53,7 @@ class DoctrineConfig
             'host' => CONFIG_DATABASE_MYSQL['host']
         ];
     }
+	*/
 
     public function getEntityManager(): EntityManager
     {

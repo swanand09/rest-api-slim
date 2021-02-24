@@ -1,10 +1,9 @@
 <?php
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__. '/../');
+$dotenv->load();
 
 $dbInfo	= [
-			"host"=> "localhost",
-			"user" => "root",
-			"pass" => "1111",
-			"name" => "pressbooks"
+			"url"=> $_ENV['DATABASE_URL']
 ];
 
 define("CONFIG_DATABASE_MYSQL", $dbInfo);
