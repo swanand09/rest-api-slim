@@ -10,7 +10,7 @@
 
 ## Installation
 - do  composer install
-- execute the sql script db/pressbooks.sql in phpymyadmin or mysql workbench
+- execute the sql script db/book_db.sql in phpymyadmin or mysql workbench
 - there is an example of a vhost conf file for nginx at `server_conf/pressbook.test.api.conf`(see its pointing to the public/index.php)
 - after creating the vhost file, add `127.0.0.1 pressbook.test.api` in /etc/hosts file
 - do nginx.restart

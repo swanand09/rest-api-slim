@@ -2,6 +2,7 @@
 
 namespace Doctrine\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,6 +27,22 @@ class Subject implements \JsonSerializable
     /** @ORM\Column(type="string") */
     protected $name;
 	
+	
+	/**
+	 * @ORM\OnetoMany(targetEntity="Doctrine\Entities\Subject",cascade={"persist"})
+	 * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
+	 *
+	 */
+	/**
+	 * @OneToMany(targetEntity="Emaki\doctrine\entities\emaki_tag_type_field", mappedBy="subject")
+	 *
+	 */
+	protected $books;
+	
+	function __construct()
+	{
+		$this->books = new ArrayCollection();
+	}
 	
    
     public function get_id()
@@ -62,12 +79,29 @@ class Subject implements \JsonSerializable
     }
 	
 	
+	public function get_books()
+	{
+		return $this->books;
+	}
+	
+	public function get_booksToArray()
+	{
+		return (!is_null($this->books)) ? $this->books->toArray() : [];
+	}
+	
+	public function set_books($books)
+	{
+		$this->books = $books;
+	}
+	
+	
 	
     public function jsonSerialize()
     {
         return [
              "identifier" => $this->get_identifier()
             , "name" => $this->get_name()
+	        , "books" => $this->get_booksToArray()
         ];
     }
 }

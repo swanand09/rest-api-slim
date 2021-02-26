@@ -25,7 +25,7 @@ class Books implements \JsonSerializable
     protected $subject_id;
 
     /**
-     * @ORM\ManytoOne(targetEntity="Doctrine\Entities\Subject",cascade={"persist"})
+     * @ORM\ManytoOne(targetEntity="Doctrine\Entities\Subject",inversedBy="books")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
      */
     protected $subject;

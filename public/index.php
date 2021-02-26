@@ -11,7 +11,9 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Middlewares\TrailingSlash;
-	
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__. '/../');
+$dotenv->load();
 
 
 $app = AppFactory::create();

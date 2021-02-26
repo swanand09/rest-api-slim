@@ -19,11 +19,17 @@ class BookFetch
 	
 	private $bookRepository;
 	
+	private $subjectRepository;
+	
+	private $bookPerPage;
+	
 	public function __construct()
 	{
 		$this->doctrineConfig = new DoctrineConfig();
 		$this->entityManager = $this->doctrineConfig->getEntityManager();
 		$this->bookRepository = $this->entityManager->getRepository(Books::class);
+		$this->subjectRepository = $this->entityManager->getRepository(Subject::class);
+		$this->bookPerPage = $_ENV['BOOKS_PER_PAGE'];
 	}
 	
 	
@@ -64,8 +70,8 @@ class BookFetch
 	 */
 	public function listBookByPageNumber(int $number) :Array
 	{
-		$limit = $number*10;
-		$offset = $limit-10;
+		$limit = $number*$this->bookPerPage;
+		$offset = $limit-$this->bookPerPage;
 		return $this->bookRepository->findBy([],[],$limit,$offset);
 	}
 	
@@ -110,12 +116,9 @@ class BookFetch
 	 */
 	public function listBookBySubject($identifier) :Array
 	{
-		$rsm = new ResultSetMappingBuilder($this->entityManager);
-		$rsm->addRootEntityFromClassMetadata('Doctrine\Entities\Books', 'b');
-		$sql = "SELECT b.* FROM books b INNER JOIN subject s ON b.subject_id = s.id WHERE s.identifier=:identifier ORDER BY b.title ASC";
-		$query = $this->entityManager->createNativeQuery($sql,$rsm);
-		$query->setParameter('identifier',$identifier);
-		return $query->getResult();
+		$subjects = $this->subjectRepository->findBy(["identifier"=>$identifier]);
+		
+		return $subjects['books'];
 	}
 	
 	public function __destruct()
