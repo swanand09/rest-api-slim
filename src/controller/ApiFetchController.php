@@ -110,7 +110,7 @@ class ApiFetchController {
 			
 			//$term = (isset($args['term']) && !empty($args['term'])) ? $args['term'] : null;
 			
-			$term = $number = (int)$request->getQueryParams()['subject'];
+			$term = $request->getQueryParams()['search'];
 			if(!is_null($term)){
 				
 				// Get api object which executes doctrine functions
@@ -168,7 +168,7 @@ class ApiFetchController {
 	public function listBookBySubject(Request $request, Response $response, $args) :Response
 	{
 		try {
-			$identifier = (isset($args['identifier']) && $args['identifier']!=='') ? intval($args['identifier']) : null;
+			$identifier =  $request->getQueryParams()['subject'];
 			if(!is_null($identifier) && $identifier >0){
 				
 				// Get api object which executes doctrine functions

@@ -49,7 +49,7 @@ $app->addErrorMiddleware(true, false, false);
 $middlewareHandleReq = function  (Request $request, RequestHandler $handler) {
 	try {
 		$param = $request->getQueryParams();
-		if (isset($param['per_page']) && !empty($param['per_page'])) {
+		if (isset($param['per_page'])) {
 			
 			if (empty($param['per_page'])) {
 				$param['per_page'] = 10;
@@ -61,40 +61,29 @@ $middlewareHandleReq = function  (Request $request, RequestHandler $handler) {
 		
 		if (isset($param['page']) && !empty($param['page'])) {
 			
-			if (empty($param['page'])) {
-				$param['page'] = 10;
-				$request->withQueryParams($param);
-			}
-			
 			return $handler->handle($request);
 		}
 		
 		if (isset($param['search']) && !empty($param['search'])) {
 			
-			if (empty($param['search'])) {
-				$param['search'] = 10;
-				$request->withQueryParams($param);
-			}
 			
 			return $handler->handle($request);
 		}
 		
 		if (isset($param['is_original']) && !empty($param['is_original'])) {
 			
-			if (empty($param['is_original'])) {
-				$param['is_original'] = 10;
-				$request->withQueryParams($param);
-			}
 			
 			return $handler->handle($request);
 		}
 		
-		if (isset($param['subject']) && !empty($param['subject'])) {
+		if (isset($param['subject'])) {
 			
 			if (empty($param['subject'])) {
-				$param['subject'] = 10;
-				$request->withQueryParams($param);
+				$param['subject'] = null;
+			}else{
+				$param['subject'] = intval($param['subject']);
 			}
+			$request->withQueryParams($param);
 			
 			return $handler->handle($request);
 		}
@@ -117,6 +106,6 @@ $app->get('/list-by-search/[?search]',  ApiFetchController::class . ':searchBook
 
 $app->get('/list-by-original/[?is_original]',  ApiFetchController::class . ':listBookByOriginal');
 
-$app->get('/list-by-subject/[?subject]',  ApiFetchController::class . ':listBookBySubject');
+$app->get('/list-by-subject/[?subject]',  ApiFetchController::class . ':listBookBySubject')->add($middlewareHandleReq);
 
 $app->run();
