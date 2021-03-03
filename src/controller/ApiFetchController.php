@@ -23,7 +23,7 @@ class ApiFetchController {
 			$response->getBody()->write(json_encode($books,JSON_PRETTY_PRINT |JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 			return $response
 				->withHeader('Content-Type', 'application/json')
-				->withHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
+				->withHeader('Access-Control-Allow-Origin', $_ENV['CORS_ALLOW_URL'])
 				->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
 				->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 		} catch(\ErrorException $e){

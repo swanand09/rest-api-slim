@@ -6,6 +6,8 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Slim\Factory\AppFactory;
+use DI\Container;
+use Slim\Csrf\Guard;
 use App\Controller\ApiFetchController;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -14,9 +16,42 @@ use Middlewares\TrailingSlash;
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__. '/../');
 $dotenv->load();
+	
+// Start PHP session
+session_start();
 
-
+// Create Container
+$container = new Container();
+AppFactory::setContainer($container);
 $app = AppFactory::create();
+$responseFactory = $app->getResponseFactory();
+
+/*
+	// Register Middleware On Container
+	$container->set('csrf', function () use ($responseFactory) {
+		return new Guard($responseFactory);
+	});
+	
+	// Register Middleware To Be Executed On All Routes
+	$app->add('csrf');
+	
+	$app->get('/foo', function ($request, $response, $args) {
+		// CSRF token name and value
+		$csrf = $this->get('csrf');
+		$nameKey = $csrf->getTokenNameKey();
+		$valueKey = $csrf->getTokenValueKey();
+		$name = $request->getAttribute($nameKey);
+		$value = $request->getAttribute($valueKey);
+*/
+		/*
+		   Render HTML form which POSTs to /bar with two hidden input fields for the
+		   name and value:
+		   <input type="hidden" name="<?= $nameKey ?>" value="<?= $name ?>">
+		   <input type="hidden" name="<?= $valueKey ?>" value="<?= $value ?>">
+		 */
+/*	});
+*/
+
 $app->add(new TrailingSlash(true));
 //$app->addRoutingMiddleware();
 	
