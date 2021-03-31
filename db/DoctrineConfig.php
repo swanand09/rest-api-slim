@@ -1,5 +1,6 @@
 <?php
 namespace App\Db;
+
 include_once "conf.php";
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
@@ -21,26 +22,26 @@ class DoctrineConfig
     {
         $this->paths = $this->getPaths();
         $isDevMode = true;
-	    
+        
 
         $this->dbParams = CONFIG_DATABASE_MYSQL;
 
         $this->configuration = Setup::createConfiguration($isDevMode);
-	    //Setup::createAnnotationMetadataConfiguration($this->dbParams, $isDevMode);
-	    $this->driver = new AnnotationDriver(new AnnotationReader(), $this->paths);
-	    // registering noop annotation autoloader - allow all annotations by default
-	    AnnotationRegistry::registerLoader('class_exists');
-	    $this->configuration->setMetadataDriverImpl( $this->driver);
+        //Setup::createAnnotationMetadataConfiguration($this->dbParams, $isDevMode);
+        $this->driver = new AnnotationDriver(new AnnotationReader(), $this->paths);
+        // registering noop annotation autoloader - allow all annotations by default
+        AnnotationRegistry::registerLoader('class_exists');
+        $this->configuration->setMetadataDriverImpl($this->driver);
     }
 
-    public function getPaths() :Array
+    public function getPaths() :array
     {
         return [
             __DIR__ . "/../src/doctrine/entities/"
         ];
     }
 
-	/*
+    /*
     public function getDbParams() :Array
     {
 
@@ -53,17 +54,15 @@ class DoctrineConfig
             'host' => CONFIG_DATABASE_MYSQL['host']
         ];
     }
-	*/
+    */
 
     public function getEntityManager(): EntityManager
     {
-    	try {
-		    $this->configuration->addEntityNamespace("entities", "Doctrine\\entities");
-	
-		    return EntityManager::create($this->dbParams, $this->configuration);
-		
-	    }catch(\Exception $e){
-    	
-	    }
+        try {
+            $this->configuration->addEntityNamespace("entities", "Doctrine\\entities");
+    
+            return EntityManager::create($this->dbParams, $this->configuration);
+        } catch (\Exception $e) {
+        }
     }
 }
